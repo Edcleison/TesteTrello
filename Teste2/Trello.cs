@@ -13,7 +13,7 @@ namespace Automacao
         {
             Global.capabilitiesMethods.Navigate(Global.driver, "https://trello.com/");
         }
-
+        //Teste SSH
         public void login()
         {
             //aguarda o botão de aceitar todos os cookies
