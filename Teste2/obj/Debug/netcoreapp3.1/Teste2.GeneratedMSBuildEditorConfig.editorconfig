@@ -1,3 +1,8 @@
 is_global = true
 build_property.RootNamespace = Teste2
-build_property.ProjectDir = C:\Curso\Projetos - Demo\TesteTrello\Teste2\
+build_property.ProjectDir = C:\Cursos\Teste Trello\Teste2\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 
+build_property.EnableCodeStyleSeverity = 

@@ -33,7 +33,7 @@ namespace Automacao
             //Global.trello.acessarQuadro("teste");
             Global.trello.criarLista("teste"); //criarLista
             Global.trello.criarCartao("teste", "teste"); //criarCartao        
-            Global.trello.criarTag("teste", "teste", "//span[contains(@class,'card-label mod-edit-label mod-clickable card-label-sky palette-color js-palette-color')]"); //criarTag           
+            Global.trello.criarTag("teste", "teste", "//button[@data-testid='color-tile-green_light']"); //criarTag           
             Global.trello.removerTag("teste", "teste");//removerTag
             Global.trello.excluirCartao("teste", "teste");//excluirCartao
             Global.trello.excluirLista("teste");//excluirLista
@@ -54,7 +54,7 @@ namespace Automacao
             // lista 1 => tag vermelha
             // lista 2 => tag azul
             // lista 3 => tag verde
-          
+
             //logar
             Global.trello.login();
 
@@ -71,8 +71,8 @@ namespace Automacao
             Global.trello.loopExclusao();
 
             //--------------------------------------------------------------
-      
-           Global.trello.logout();//logout
+
+            Global.trello.logout();//logout
 
 
         }
@@ -80,7 +80,7 @@ namespace Automacao
         [TestMethod]
         public void LoopTrelloRandom()
         {
-            
+
             //logar
             Global.trello.login();
 
@@ -103,6 +103,22 @@ namespace Automacao
 
         }
 
+        [TestMethod]
+
+        public void FecharQuadros()
+        {
+
+            //logar
+            Global.trello.login();
+
+            //-----------------------------------------------------------
+            Global.trello.fecharQuadros("//div[contains(@class,'EAVRQ0SLBlQrwI')]");
+
+            //--------------------------------------------------------------
+
+            Global.trello.logout();//logout
+        }
+
 
 
         [TestCleanup]
@@ -111,8 +127,8 @@ namespace Automacao
             // Finalização do browser
             try
             {
-                //Global.driver.Close();
-                Global.driver.Quit();
+                Global.driver.Close();
+                // Global.driver.Quit();
             }
             catch (Exception)
             {

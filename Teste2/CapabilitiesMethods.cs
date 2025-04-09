@@ -8,6 +8,9 @@ using SeleniumExtras.WaitHelpers;
 using System.Drawing;
 using OpenQA.Selenium.Chrome;
 using System.Reflection;
+using OpenQA.Selenium.Interactions;
+using System.Xml.Linq;
+using OpenQA.Selenium.Support.UI;
 
 namespace Automacao
 {
@@ -34,8 +37,9 @@ namespace Automacao
             }
             //options.AddArgument("--headless");
             options.AddArgument("--incognito");
-            options.AddArgument("--start-maximized");
-            //options.AddArgument("--window-size=1366,768");
+            options.AddArgument("--start-maximized");// Inicia maximizado
+            //options.AddArgument("--window-position=1,0"); // Metade direita (960px de largura)
+            //options.AddArgument("--window-size=960,1080");  // Ajusta o tamanho para metade da tela
             //options.AddArgument("--no-sandbox");
             //options.AddArgument("--disable-dev-shm-usage");
             //options.AddArgument("--disable-gpu");
@@ -49,7 +53,7 @@ namespace Automacao
             IWebDriver driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), options, TimeSpan.FromMinutes(1));
             return driver;
         }
-        
+
         public void Wait(int milliseconds)
         {
             Thread.Sleep(milliseconds);
@@ -245,6 +249,21 @@ namespace Automacao
             actions.MoveToElement(webElement).Perform();
             Wait(milliseconds);
         }
-
+        public void ScrollToBottomWithBy(IWebDriver driver, By by)
+        {
+            try
+            {
+                IWebElement elemento = driver.FindElement(by);
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView({ behavior: 'smooth', block: 'center' });", elemento);
+            }
+            catch (WebDriverTimeoutException)
+            {
+                Console.WriteLine("❌ Elemento não encontrado ou não visível após o tempo limite.");
+            }
+        }
+        public int CountElements(IWebDriver driver, By element)
+        {
+           return Global.driver.FindElements(element).Count;
+        }
     }
 }
