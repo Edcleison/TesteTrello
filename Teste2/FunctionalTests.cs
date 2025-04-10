@@ -19,7 +19,7 @@ namespace Automacao
             Global.trello.paginaInicial();
         }
 
-        //[TestMethod]
+        [TestMethod]
         public void LoginTrello()
         {
             #region tarefa 1
@@ -45,7 +45,7 @@ namespace Automacao
             //Global.capabilitiesMethods.Wait(5000);            
         }
 
-        //[TestMethod]
+        [TestMethod]
         public void LoopTrello()
         {
             // exercicio de loop, criar 1 quadro e na sequencia, 3 listas com 3 cartões cada, sendo:
@@ -103,7 +103,7 @@ namespace Automacao
 
         }
 
-        //[TestMethod]
+        [TestMethod]
 
         public void FecharQuadros()
         {
