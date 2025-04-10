@@ -263,7 +263,34 @@ namespace Automacao
         }
         public int CountElements(IWebDriver driver, By element)
         {
-           return Global.driver.FindElements(element).Count;
+            return Global.driver.FindElements(element).Count;
+        }
+
+        public void WaitHideElement(IWebDriver driver, By element)
+        {
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20)); // define o timeout
+            wait.Until(driver =>
+            {
+                try
+                {
+                    var elementos = driver.FindElements(element);
+                    return elementos.Count == 0 || !elementos[0].Displayed;
+                }
+                catch (NoSuchElementException)
+                {
+                    return true;
+                }
+                catch (StaleElementReferenceException)
+                {
+                    return true;
+                }
+            });
+        }
+        public void PressionarEsc(IWebDriver driver)
+        {
+            Actions actions = new Actions(driver);
+            actions.SendKeys(Keys.Escape).Perform();
         }
     }
 }
+

@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 
 namespace Automacao
@@ -12,7 +13,7 @@ namespace Automacao
         public void paginaInicial()
         {
             Global.capabilitiesMethods.Navigate(Global.driver, "https://trello.com/");
-        }     
+        }
         public void login()
         {
             //aguarda o botão de aceitar todos os cookies
@@ -51,6 +52,11 @@ namespace Automacao
             Global.capabilitiesMethods.SendKeys(Global.driver, By.Id("password"), "@Trello123");
             //clica em acessar
             Global.capabilitiesMethods.Click(Global.driver, By.Id("login-submit"), 1000);
+
+            if (Global.capabilitiesMethods.Exists(Global.driver, By.Id("mfa-promote-dismiss")))
+            {
+                Global.capabilitiesMethods.Click(Global.driver, By.Id("mfa-promote-dismiss"), 1000);
+            }
         }
 
 
@@ -61,6 +67,11 @@ namespace Automacao
         {
             //espera a barra de pesquisar aparecer
             Global.capabilitiesMethods.WaitVisible(Global.driver, By.XPath("//button[@data-testid='header-create-menu-button']"));
+            //fecha as preferencias de cookies
+            if (Global.capabilitiesMethods.Exists(Global.driver, By.XPath("//span[@data-testid='experiment-one-button-icon']")))
+            {
+                Global.capabilitiesMethods.Click(Global.driver, By.XPath("//span[@data-testid='experiment-one-button-icon']"), 1000);
+            }
             // clica no link para criar quadro
             if (Global.capabilitiesMethods.Exists(Global.driver, By.XPath("//button[@data-testid='create-board-tile']/div/span")))
             {
@@ -91,28 +102,41 @@ namespace Automacao
         public void criarLista(string novaLista)
         {
             Global.capabilitiesMethods.WaitExists(Global.driver, By.XPath("//ol[@id='board']"));
+            //recolhe a aba Area de trabalho
+            if (Global.capabilitiesMethods.IsDisplayed(Global.driver, By.XPath("//button[@data-testid='workspace-navigation-collapse-button']")))
+            {
+                Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[@data-testid='workspace-navigation-collapse-button']"), 1000);
+            }
 
             //verifica se elemento para adicionar listas está presente
-            if (Global.capabilitiesMethods.Exists(Global.driver, By.XPath("//button[contains(@data-testid,'list-composer')]")))
+            //if (Global.capabilitiesMethods.Exists(Global.driver, By.XPath("//button[contains(@data-testid,'list-composer')]")))
+            //{
+            //aguarda ocultar elemento
+            if (Global.capabilitiesMethods.IsDisplayed(Global.driver, By.XPath("//div[@class='atlaskit-portal']")))
             {
-                Global.capabilitiesMethods.WaitExists(Global.driver, By.XPath("//button[contains(@data-testid,'list-composer')]"));
-                if (!Global.capabilitiesMethods.IsDisplayed(Global.driver, By.XPath("//textarea[@data-testid='list-name-textarea']")))
-                {
-                    //botão nova lista
-                    Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[contains(@data-testid,'list-composer')]"), 1000);
-                }
-                //nomeia a lista              
-                Global.capabilitiesMethods.SendKeys(Global.driver, By.XPath("//*[*[textarea[@data-testid='list-name-textarea']]//button[contains(@data-testid,'list-composer-add')]]//textarea"), novaLista);
-                // salva a lista
-                Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[@data-testid='list-composer-add-list-button']"), 1000);
-                //cancela a nova lista
-                Global.capabilitiesMethods.Click(Global.driver, By.XPath("//span[@data-testid='CloseIcon']"), 1000);
+                //Global.capabilitiesMethods.WaitHideElement(Global.driver, By.XPath("//div[@class='atlaskit-portal']"));
+                //Global.capabilitiesMethods.Click(Global.driver, By.XPath("//span[@data-testid='StarIcon']"), 1000);
+                Global.capabilitiesMethods.PressionarEsc(Global.driver);
             }
-            if (!Global.capabilitiesMethods.Exists(Global.driver, By.XPath("//button[contains(@data-testid,'list-composer')]")))
+            //espera botão nova lista ser clicável
+            //Global.capabilitiesMethods.WaitVisible(Global.driver, By.XPath("//div[@class='atlaskit-portal']"));
+            if (!Global.capabilitiesMethods.IsDisplayed(Global.driver, By.XPath("//textarea[@data-testid='list-name-textarea']")))
             {
-                //implementar um for para capturar o nome das listas default: A fazer, Em andamento e Concluído
-                //renomear a primeira lista para teste e apagar as outras duas
+                //botão nova lista
+                Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[contains(@data-testid,'list-composer')]"), 1000);
             }
+            //nomeia a lista              
+            Global.capabilitiesMethods.SendKeys(Global.driver, By.XPath("//*[*[textarea[@data-testid='list-name-textarea']]//button[contains(@data-testid,'list-composer-add')]]//textarea"), novaLista);
+            // salva a lista
+            Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[@data-testid='list-composer-add-list-button']"), 1000);
+            //cancela a nova lista
+            Global.capabilitiesMethods.Click(Global.driver, By.XPath("//span[@data-testid='CloseIcon']"), 1000);
+            // }
+            //if (!Global.capabilitiesMethods.Exists(Global.driver, By.XPath("//button[contains(@data-testid,'list-composer')]")))
+            //{
+            //    //implementar um for para capturar o nome das listas default: A fazer, Em andamento e Concluído
+            //    //renomear a primeira lista para teste e apagar as outras duas
+            //}
         }
 
         public void criarCartao(string nomeLista, string novoCartao)
@@ -173,12 +197,13 @@ namespace Automacao
             // seleciona o menu tag
             Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[@data-testid='card-back-labels-button']"), 1000);
             //rola até a tag selecionada
-            if (!Global.capabilitiesMethods.IsVisible(Global.driver, By.XPath($@"//*[input[@aria-checked='true']]")))
+            if (!Global.capabilitiesMethods.IsVisible(Global.driver, By.XPath($@"//*[input[@aria-checked='true']]/span/span")))
             {
-                Global.capabilitiesMethods.ScrollToBottomWithBy(Global.driver, By.XPath($@"//*[input[@aria-checked='true']]"));
+                Global.capabilitiesMethods.ScrollToBottomWithBy(Global.driver, By.XPath($@"//*[input[@aria-checked='true']]/span/span"));
             }
+            Global.capabilitiesMethods.WaitClickable(Global.driver, By.XPath($@"//*[input[@aria-checked='true']]/span/span"));
             //desmarca tag
-            Global.capabilitiesMethods.Click(Global.driver, By.XPath($@"//*[input[@aria-checked='true']]"), 1000);
+            Global.capabilitiesMethods.Click(Global.driver, By.XPath($@"//*[input[@aria-checked='true']]/span/span"), 1000);
             //fecha  a edição da etiqueta
             Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[contains(@data-testid,'popover-close')]"), 1000);
             // fecha a edição do cartão
@@ -217,49 +242,95 @@ namespace Automacao
 
 
             //abre o menu
-            Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[*[span[@data-testid='OverflowMenuHorizontalIcon']]]"), 1000);
+            Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[@aria-label='Mostrar Menu']"), 1000);
             //abre os itens arquivados
-            Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button/span[contains(@aria-label,'Itens arquivados')]"), 1000);
+            if (Global.capabilitiesMethods.IsVisible(Global.driver, By.XPath("//button/span[contains(@aria-label,'Itens arquivados')]")))
+            {
+                Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button/span[contains(@aria-label,'Itens arquivados')]"), 1000);
+            }
+            if (Global.capabilitiesMethods.IsVisible(Global.driver, By.XPath("//button[span[span[@data-testid='ArchiveIcon']]]")))
+            {
+                Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[span[span[@data-testid='ArchiveIcon']]]"), 1000);
+            }
             //clica no botão alternar para listas
-            Global.capabilitiesMethods.Click(Global.driver, By.XPath("//div[@data-testid='board-menu-container']//button"), 1000);
+            Global.capabilitiesMethods.Click(Global.driver, By.XPath("//div[@data-testid='board-menu-container']//button[normalize-space(text())='Alternar para listas']"), 1000);
             // clica no botão para excluir lista
             Global.capabilitiesMethods.Click(Global.driver, By.XPath($@"//*[span[contains(text(), '{nomeLista}')]]//button//span[contains(@data-testid,'TrashIcon')]"), 1000);
             //confirma a exclusão
             Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[contains(text(),'Excluir')]"), 1000);
             //fechar
-            Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[@data-testid='popover-close']"), 1000);
+            Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[span/span[@data-testid='CloseIcon']]"), 1000);
 
 
         }
 
         public void excluirQuadro()
         {
-            //abre o menu
-            Global.capabilitiesMethods.Click(Global.driver, By.XPath("//*[button[@data-testid='board-share-button']]/button[@aria-label='Mostrar Menu']"), 1000);
-            //fechar quadro
-            Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button/span[contains(@aria-label,'Fechar quadro')]"), 1000);
+            if (Global.capabilitiesMethods.IsVisible(Global.driver, By.XPath("//*[button[@data-testid='board-share-button']]/button[@aria-label='Mostrar Menu']")))
+            {
+                //abre o menu
+                Global.capabilitiesMethods.Click(Global.driver, By.XPath("//*[button[@data-testid='board-share-button']]/button[@aria-label='Mostrar Menu']"), 1000);
+            }
+            //seleciona fechar o quadro 
+            if (Global.capabilitiesMethods.Exists(Global.driver, By.XPath("//button[div[normalize-space(text())='Fechar quadro']]")))
+            {
+                if (!Global.capabilitiesMethods.IsVisible(Global.driver, By.XPath("//button[div[normalize-space(text())='Fechar quadro']]")))
+                {
+
+                    Global.capabilitiesMethods.ScrollToBottomWithBy(Global.driver, By.XPath("//button[div[normalize-space(text())='Fechar quadro']]"));
+                }
+                //fechar quadro
+                Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[div[normalize-space(text())='Fechar quadro']]"), 1000);
+            }
+            //seleciona fechar o quadro dentro do elemento li
+            else if (Global.capabilitiesMethods.Exists(Global.driver, By.XPath("//*[*[span[@data-testid='RemoveIcon']]]")))
+            {
+                if (!Global.capabilitiesMethods.IsVisible(Global.driver, By.XPath("//*[*[span[@data-testid='RemoveIcon']]]")))
+                {
+
+                    Global.capabilitiesMethods.ScrollToBottomWithBy(Global.driver, By.XPath("//*[*[span[@data-testid='RemoveIcon']]]"));
+                }
+                //fechar quadro
+                Global.capabilitiesMethods.Click(Global.driver, By.XPath("//*[*[span[@data-testid='RemoveIcon']]]"), 1000);
+            }
+
+            if (!Global.capabilitiesMethods.IsVisible(Global.driver, By.XPath("//button[@data-testid='popover-close-board-confirm']")))
+            {
+                Global.capabilitiesMethods.ScrollToBottomWithBy(Global.driver, By.XPath("//button[@data-testid='popover-close-board-confirm']"));
+            }
             //1ª confirmação
-            Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[@data-testid='popover-close-board-confirm']"), 1000);
+            Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[@data-testid='popover-close-board-confirm']"), 2000);
             //abre o menu
-            Global.capabilitiesMethods.Click(Global.driver, By.XPath("//*[button[@data-testid='board-share-button']]/button[@aria-label='Mostrar Menu']"), 1000);
+            {
+                if (Global.capabilitiesMethods.IsVisible(Global.driver, By.XPath("//*[button[@data-testid='board-share-button']]/button[@aria-label='Mostrar Menu']")))
+                {
+                    Global.capabilitiesMethods.Click(Global.driver, By.XPath("//*[button[@data-testid='board-share-button']]/button[@aria-label='Mostrar Menu']"), 1000);
+                }
+            }
             //2ª confirmação
-            Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[@data-testid='close-board-delete-board-button']"), 1000);
+            Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[contains(@data-testid,'close-board-delete')]"), 1000);
             //excluir
-            Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[@data-testid='close-board-delete-board-confirm-button']"), 1000);
+            Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[contains(@data-testid,'close-board-delete-board-confirm-button')]"), 1000);
 
         }
 
         public void logout()
         {
-
-            //abre o menu
-            Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[contains(@data-testid,'header-member-menu-button')]"), 1000);
-            //sair 1
-            if (!Global.capabilitiesMethods.IsVisible(Global.driver, By.XPath("//button[contains(@data-testid,'account-menu-logout')]")))
+            for (int i = 0; i < 3; i++)
             {
-                Global.capabilitiesMethods.ScrollToBottomWithBy(Global.driver, By.XPath("//button[contains(@data-testid,'account-menu-logout')]"));
+                if (!Global.capabilitiesMethods.IsDisplayed(Global.driver, By.XPath("//button[*[span[text()='Fazer Logout']]]")))
+                {
+                    //abre o menu
+                    Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[contains(@data-testid,'header-member-menu-button')]"), 1000);
+                }
             }
-            Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[contains(@data-testid,'account-menu-logout')]"), 1000);
+
+            //sair 1
+            if (!Global.capabilitiesMethods.IsVisible(Global.driver, By.XPath("//button[*[span[text()='Fazer Logout']]]")))
+            {
+                Global.capabilitiesMethods.ScrollToBottomWithBy(Global.driver, By.XPath("//button[*[span[text()='Fazer Logout']]]"));
+            }
+            Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[*[span[text()='Fazer Logout']]]"), 1000);
             //sair 2 
             Global.capabilitiesMethods.Click(Global.driver, By.XPath("//button[contains(@data-testid,'logout-button')]"), 1000);
         }
@@ -307,7 +378,7 @@ namespace Automacao
                 }
                 contCartao = 1;
             }
-           // contCartao = 1;
+            // contCartao = 1;
 
         }
 
@@ -351,7 +422,7 @@ namespace Automacao
         public void loopCriacaoRandom()
         {
 
-            Global.trello.criarQuadro("testeLoopRandom");//criarQuadro
+            Global.trello.criarQuadro("testeTrelloRandom");//criarQuadro
 
             int contCartao = 1;
 
@@ -362,7 +433,7 @@ namespace Automacao
                 {
                     string cor;
                     Global.trello.criarCartao("Lista " + i.ToString(), "Cartão " + contCartao.ToString()); //criarCartao
-                    //gera cor rândomicamente e passa para a variável cor
+                                                                                                           //gera cor rândomicamente e passa para a variável cor
                     cor = geraCorTagRandom();
                     Global.trello.criarTag("Lista " + i.ToString(), "Cartão " + contCartao.ToString(), $@"//button[@data-testid='{cor}']"); //criarTag 
                     contCartao++;
@@ -407,8 +478,14 @@ namespace Automacao
         {
             Global.capabilitiesMethods.WaitVisible(Global.driver, By.XPath("//span[@data-testid='BoardIcon']"));
             Global.capabilitiesMethods.Click(Global.driver, By.XPath("//span[@data-testid='BoardIcon']"), 1000);
+            //fecha as preferencias de cookies
+            if (Global.capabilitiesMethods.Exists(Global.driver, By.XPath("//span[@data-testid='experiment-one-button-icon']")))
+            {
+                Global.capabilitiesMethods.Click(Global.driver, By.XPath("//span[@data-testid='experiment-one-button-icon']"), 1000);
+            }
 
             int quantidade = Global.capabilitiesMethods.CountElements(Global.driver, By.XPath(xPath));
+            quantidade = quantidade - 1;
             for (int i = quantidade; i >= 1; i--)
             {
 
