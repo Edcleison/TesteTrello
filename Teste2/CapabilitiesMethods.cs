@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
 using OpenQA.Selenium;
 using System.Threading;
@@ -9,8 +7,15 @@ using System.Drawing;
 using OpenQA.Selenium.Chrome;
 using System.Reflection;
 using OpenQA.Selenium.Interactions;
-using System.Xml.Linq;
+
 using OpenQA.Selenium.Support.UI;
+
+using System.Text.RegularExpressions;
+using MailKit.Net.Imap;
+using MailKit.Search;
+using MailKit;
+using MimeKit;
+
 
 namespace Automacao
 {
@@ -35,7 +40,7 @@ namespace Automacao
                 chromeDriverPath = projectPath;
                 service = ChromeDriverService.CreateDefaultService(chromeDriverPath, "chromedriver.exe");
             }
-            //options.AddArgument("--headless");
+            options.AddArgument("--headless");
             options.AddArgument("--incognito");
             options.AddArgument("--start-maximized");// Inicia maximizado
             //options.AddArgument("--window-position=1,0"); // Metade direita (960px de largura)
@@ -249,18 +254,8 @@ namespace Automacao
             actions.MoveToElement(webElement).Perform();
             Wait(milliseconds);
         }
-        public void ScrollToBottomWithBy(IWebDriver driver, By by)
-        {
-            try
-            {
-                IWebElement elemento = driver.FindElement(by);
-                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView({ behavior: 'smooth', block: 'center' });", elemento);
-            }
-            catch (WebDriverTimeoutException)
-            {
-                Console.WriteLine("❌ Elemento não encontrado ou não visível após o tempo limite.");
-            }
-        }
+
+
         public int CountElements(IWebDriver driver, By element)
         {
             return Global.driver.FindElements(element).Count;
@@ -291,6 +286,96 @@ namespace Automacao
             Actions actions = new Actions(driver);
             actions.SendKeys(Keys.Escape).Perform();
         }
+        public void TentarClicarElemento(IWebDriver driver, By by, int tempoEspera = 1000)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (Global.capabilitiesMethods.IsVisible(driver, by))
+                {
+                    Global.capabilitiesMethods.Click(driver, by, tempoEspera);
+                    //Global.capabilitiesMethods.ScreeanShot();
+                    i = 3;
+                }
+            }
+        }
+
+        public void TentarPreencherCampo(IWebDriver driver, By by, string texto)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (Global.capabilitiesMethods.IsVisible(driver, by))
+                {
+                    Global.capabilitiesMethods.SendKeys(driver, by, texto);
+                    //Global.capabilitiesMethods.ScreeanShot();
+                    i = 3;
+                }
+            }
+        }
+
+        public void ScrollToElement(IWebDriver driver, By by)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (!Global.capabilitiesMethods.IsVisible(driver, by))
+                {
+                    IWebElement elemento = driver.FindElement(by);
+                    ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView({ behavior: 'smooth', block: 'center' });", elemento);
+
+                }
+                if (Global.capabilitiesMethods.IsVisible(driver, by))
+                {
+                    i = 3;
+                }
+            }
+        }
+
+        public void ScreeanShot()
+        {
+            // Tira o print antes de fechar o browser
+            Screenshot screenshot = ((ITakesScreenshot)Global.driver).GetScreenshot();
+            // Define o caminho e o nome do arquivo do print
+            string fileName = $"screenshot_{DateTime.Now:yyyyMMdd_HHmmss}.png";
+            string filePath = Path.Combine($@"C:\Cursos\Teste Trello\Print", fileName);
+
+            // Salva o print
+            screenshot.SaveAsFile(filePath);
+        }
+
+        public string ObterCodigoVerificacaoGmail()
+        {
+            using (var client = new ImapClient())
+            {
+                // Ignora a verificação de certificado SSL
+                client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+
+                // Conecta ao servidor Gmail via IMAP
+                client.Connect("imap.gmail.com", 993, true);
+
+                // Autenticação com senha de app
+                client.Authenticate("mail.qa@gmail.com", "");
+
+                // Acessa a caixa de entrada
+                var inbox = client.Inbox;
+                inbox.Open(FolderAccess.ReadOnly);
+
+                // Busca e-mails com "Trello" no assunto (sem filtro de não lido)
+                var uids = inbox.Search(SearchQuery.SubjectContains("Verificação da sua identidade"));
+
+                if (uids.Count == 0)
+                    throw new Exception("Nenhum e-mail com o assunto 'Verificação da sua identidade' encontrado.");
+
+                // Pega o último e-mail da lista
+                var mensagem = inbox.GetMessage(uids[uids.Count - 1]);
+                string corpo = mensagem.TextBody;
+
+
+                // Aqui você pode aplicar um regex pra extrair um código, se quiser.
+                return corpo;
+            }
+        }
+
+
+
     }
 }
 

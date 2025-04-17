@@ -395,7 +395,9 @@ C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\Teste2.runtimeconfig.json
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\Teste2.runtimeconfig.dev.json
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\Teste2.dll
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\Teste2.pdb
+C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\BouncyCastle.Cryptography.dll
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\SeleniumExtras.WaitHelpers.dll
+C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\MailKit.dll
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\Microsoft.ApplicationInsights.dll
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.CodeCoverage.Shim.dll
@@ -411,13 +413,18 @@ C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\Microsoft.TestPlatform.Com
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\Microsoft.TestPlatform.CrossPlatEngine.dll
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\Microsoft.TestPlatform.Utilities.dll
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.Common.dll
+C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\MimeKit.dll
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\WebDriver.Support.dll
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\WebDriver.dll
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
+C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\System.Formats.Asn1.dll
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.dll
+C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\System.Security.Cryptography.Cng.dll
+C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\System.Security.Cryptography.Pkcs.dll
+C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\System.Text.Encoding.CodePages.dll
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\System.Text.Encodings.Web.dll
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\System.Text.Json.dll
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\cs\Microsoft.Testing.Extensions.Telemetry.resources.dll
@@ -550,6 +557,7 @@ C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\ru\Microsoft.VisualStudio.
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\tr\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+C:\Cursos\Teste Trello\Teste2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Security.Cryptography.Cng.dll
 C:\Cursos\Teste Trello\Teste2\obj\Debug\netcoreapp3.1\Teste2.csproj.AssemblyReference.cache
 C:\Cursos\Teste Trello\Teste2\obj\Debug\netcoreapp3.1\Teste2.GeneratedMSBuildEditorConfig.editorconfig
 C:\Cursos\Teste Trello\Teste2\obj\Debug\netcoreapp3.1\Teste2.gentestingplatformentrypointinputcache.cache

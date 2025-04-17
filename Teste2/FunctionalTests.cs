@@ -1,6 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using System;
+using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
+using System.IO;
 
 namespace Automacao
 {
@@ -124,15 +126,16 @@ namespace Automacao
         [TestCleanup]
         public void TeardownTest()
         {
+            Global.capabilitiesMethods.ScreeanShot();
             // Finalização do browser
             try
             {
                 Global.driver.Close();
                 // Global.driver.Quit();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Console.WriteLine($"Erro ao finalizar o teste ou tirar o print: {ex.Message}");
             }
         }
     }
