@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\TesteTrello-main\\TesteTrello-main\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8524FFEA-3EF4-4490-B9FB-C6EA0728C6CA}|AutomacaoTrello\\TesteTrello.csproj|c:\\testetrello-main\\testetrello-main\\automacaotrello\\trello.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8524FFEA-3EF4-4490-B9FB-C6EA0728C6CA}|AutomacaoTrello\\TesteTrello.csproj|solutionrelative:automacaotrello\\trello.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8524FFEA-3EF4-4490-B9FB-C6EA0728C6CA}|AutomacaoTrello\\TesteTrello.csproj|c:\\testetrello-main\\testetrello-main\\automacaotrello\\global.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8524FFEA-3EF4-4490-B9FB-C6EA0728C6CA}|AutomacaoTrello\\TesteTrello.csproj|solutionrelative:automacaotrello\\global.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8524FFEA-3EF4-4490-B9FB-C6EA0728C6CA}|AutomacaoTrello\\TesteTrello.csproj|c:\\testetrello-main\\testetrello-main\\automacaotrello\\functionaltests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8524FFEA-3EF4-4490-B9FB-C6EA0728C6CA}|AutomacaoTrello\\TesteTrello.csproj|solutionrelative:automacaotrello\\functionaltests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8524FFEA-3EF4-4490-B9FB-C6EA0728C6CA}|AutomacaoTrello\\TesteTrello.csproj|c:\\testetrello-main\\testetrello-main\\automacaotrello\\capabilitiesmethods.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8524FFEA-3EF4-4490-B9FB-C6EA0728C6CA}|AutomacaoTrello\\TesteTrello.csproj|solutionrelative:automacaotrello\\capabilitiesmethods.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Trello.cs",
+              "DocumentMoniker": "C:\\TesteTrello-main\\TesteTrello-main\\AutomacaoTrello\\Trello.cs",
+              "RelativeDocumentMoniker": "AutomacaoTrello\\Trello.cs",
+              "ToolTip": "C:\\TesteTrello-main\\TesteTrello-main\\AutomacaoTrello\\Trello.cs",
+              "RelativeToolTip": "AutomacaoTrello\\Trello.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-19T03:16:56.508Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Global.cs",
+              "DocumentMoniker": "C:\\TesteTrello-main\\TesteTrello-main\\AutomacaoTrello\\Global.cs",
+              "RelativeDocumentMoniker": "AutomacaoTrello\\Global.cs",
+              "ToolTip": "C:\\TesteTrello-main\\TesteTrello-main\\AutomacaoTrello\\Global.cs",
+              "RelativeToolTip": "AutomacaoTrello\\Global.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-19T03:16:55.757Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FunctionalTests.cs",
+              "DocumentMoniker": "C:\\TesteTrello-main\\TesteTrello-main\\AutomacaoTrello\\FunctionalTests.cs",
+              "RelativeDocumentMoniker": "AutomacaoTrello\\FunctionalTests.cs",
+              "ToolTip": "C:\\TesteTrello-main\\TesteTrello-main\\AutomacaoTrello\\FunctionalTests.cs",
+              "RelativeToolTip": "AutomacaoTrello\\FunctionalTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-19T03:16:55.028Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CapabilitiesMethods.cs",
+              "DocumentMoniker": "C:\\TesteTrello-main\\TesteTrello-main\\AutomacaoTrello\\CapabilitiesMethods.cs",
+              "RelativeDocumentMoniker": "AutomacaoTrello\\CapabilitiesMethods.cs",
+              "ToolTip": "C:\\TesteTrello-main\\TesteTrello-main\\AutomacaoTrello\\CapabilitiesMethods.cs",
+              "RelativeToolTip": "AutomacaoTrello\\CapabilitiesMethods.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-19T03:16:53.204Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
